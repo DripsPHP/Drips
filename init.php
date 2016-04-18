@@ -17,7 +17,7 @@ if(!is_dir(VENDOR_DIRECTORY) || !file_exists(__DIR__."/composer.lock") || !file_
     die("Führen Sie bitte zuerst ein <code>composer update</code> durch");
 }
 
-if(strtolower($_SERVER["SERVER_SOFTWARE"]) == "apache" && !file_exists(DRIPS_HTACCESS)){
+if(stripos($_SERVER["SERVER_SOFTWARE"], "apache") !== false && !file_exists(DRIPS_HTACCESS)){
     copy(ROUTING_HTACCESS, DRIPS_HTACCESS);
 }
 
