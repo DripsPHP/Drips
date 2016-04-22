@@ -4,7 +4,7 @@
     "keywords": ["framework", "php", "drips", "prowect"],
     "license": "MIT",
     "require": {
-        "drips/routing": ">=v0.1",
+        "drips/routing": ">=v0.2",
         "drips/mvc": ">=v0.1"
     },
     "require-dev": {
