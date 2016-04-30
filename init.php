@@ -18,7 +18,9 @@ if(!is_dir(VENDOR_DIRECTORY) || !file_exists(__DIR__."/composer.lock") || !file_
 }
 
 if(stripos($_SERVER["SERVER_SOFTWARE"], "apache") !== false && !file_exists(DRIPS_HTACCESS)){
-    copy(ROUTING_HTACCESS, DRIPS_HTACCESS);
+    if(!copy(ROUTING_HTACCESS, DRIPS_HTACCESS)){
+        die("Konnte ".ROUTING_HTACCESS." nicht nach ".DRIPS_HTACCESS." kopieren!");
+    }
 }
 
 require_once COMPOSER_AUTOLOAD;
