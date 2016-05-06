@@ -26,6 +26,9 @@ if(stripos($_SERVER["SERVER_SOFTWARE"], "apache") !== false && !file_exists(DRIP
 require_once COMPOSER_AUTOLOAD;
 
 // Debugger aktivieren, sofern dieser existiert
+$debug = false;
 if(class_exists(Debugger::class)){
+    $debug = true;
     $debugger = new Debugger;
 }
+define("DRIPS_DEBUG", $debug);
