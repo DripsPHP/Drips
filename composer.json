@@ -4,11 +4,11 @@
     "keywords": ["framework", "php", "drips", "prowect"],
     "license": "MIT",
     "require": {
-        "drips/routing": "^v0.2",
-        "drips/mvc": "^v0.1"
+        "drips/routing": "dev-master",
+        "drips/mvc": "dev-master"
     },
     "require-dev": {
-        "drips/debugger": "^v0.1"
+        "drips/debugger": "dev-master"
     },
     "autoload": {
         "psr-4": {
