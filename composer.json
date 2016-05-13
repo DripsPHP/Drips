@@ -5,10 +5,10 @@
     "license": "MIT",
     "require": {
         "drips/routing": "dev-master",
-        "drips/mvc": "dev-master"
+        "drips/mvc": "dev-master",
+        "drips/debugger": "dev-master"
     },
     "require-dev": {
-        "drips/debugger": "dev-master"
     },
     "autoload": {
         "psr-4": {
