@@ -3,6 +3,9 @@
 use Drips\Debugger\Debugger;
 
 define('VENDOR_DIRECTORY', __DIR__.'/vendor');
+define('PUBLIC_DIRECTORY', __DIR__.'/public');
+define('DRIPS_CORE', __DIR__.'/core');
+define('DRIPS_ERRORS', DRIPS_CORE.'/errors');
 define('COMPOSER_AUTOLOAD', VENDOR_DIRECTORY.'/autoload.php');
 define('ROUTING_HTACCESS', VENDOR_DIRECTORY.'/drips/routing/.htaccess');
 define('DRIPS_HTACCESS', __DIR__.'/.htaccess');
@@ -14,7 +17,7 @@ if (basename(__FILE__) == basename($_SERVER['SCRIPT_FILENAME'])) {
 
 // Wurde bereits `composer update` durchgeführt?
 if (!is_dir(VENDOR_DIRECTORY) || !file_exists(__DIR__.'/composer.lock') || !file_exists(COMPOSER_AUTOLOAD)) {
-    die('Führen Sie bitte zuerst ein <code>composer update</code> durch');
+    include(DRIPS_ERRORS."/install_composer.phtml");
 }
 
 // Handelt es sich um einen Apache Webserver?
@@ -22,12 +25,12 @@ if (PHP_SAPI != 'cli' && stripos($_SERVER['SERVER_SOFTWARE'], 'apache') !== fals
     // Existiert die .htaccess Datei des Routing-Systems
     if (!file_exists(DRIPS_HTACCESS)) {
         if (!copy(ROUTING_HTACCESS, DRIPS_HTACCESS)) {
-            die('Konnte '.ROUTING_HTACCESS.' nicht nach '.DRIPS_HTACCESS.' kopieren!');
+            include(DRIPS_ERRORS."/htaccess_copy.phtml");
         }
     }
     // Ist das Apache Rewrite-Module aktiviert?
     if (!in_array('mod_rewrite', apache_get_modules())) {
-        die('Bitte aktivieren Sie das Rewrite-Module des Apache Webservers: <code>a2enmod rewrite</code>');
+        include(DRIPS_ERRORS."/mod_rewrite.phtml");
     }
 }
 

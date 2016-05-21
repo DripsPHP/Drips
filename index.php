@@ -15,7 +15,7 @@ if(file_exists(INIT_FILE)){
             require_once ROUTES_FILE;
         } catch(Error404Exception $e) {
             if(!Router::getInstance()->hasRoutes()){
-                die("Es wurden noch keine Routen eingetragen! Erste Schritte ...");
+                include(DRIPS_ERRORS."/no_routes.phtml");
             } else {
                 throw $e;
             }
@@ -24,6 +24,4 @@ if(file_exists(INIT_FILE)){
     if(file_exists(AUTOLOAD_FILE)){
         require_once AUTOLOAD_FILE;
     }
-} else {
-    echo "Drips-Fehler: die Installation ist unvollständig!";
 }
