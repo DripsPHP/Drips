@@ -9,6 +9,7 @@
         "drips/debugger": "dev-master"
     },
     "require-dev": {
+        "drips/debugbar": "dev-master"
     },
     "autoload": {
         "psr-4": {
