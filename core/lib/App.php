@@ -8,8 +8,6 @@ use Drips\Debugger\Debugger;
 
 class App extends Event
 {
-    public $router;
-
     public function __construct()
     {
         static::call("create", $this);
