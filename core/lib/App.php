@@ -9,12 +9,11 @@ use Drips\Debugger\Debugger;
 class App extends Event
 {
     public $router;
-    protected $debugger;
 
     public function __construct()
     {
         $this->install();
-        $this->debugger = new Debugger;
+        static::call("create", $this);
         $this->router = Router::getInstance();
     }
 
@@ -30,7 +29,7 @@ class App extends Event
 
     public function run()
     {
-        static::call("startup");
+        static::call("startup", $this);
         if($this->router->hasRoutes()){
             $this->router->route();
         } else {
@@ -40,6 +39,6 @@ class App extends Event
 
     public function __destruct()
     {
-        static::call("shutdown");
+        static::call("shutdown", $this);
     }
 }
