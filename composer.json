@@ -6,7 +6,8 @@
     "require": {
         "drips/routing": "dev-master",
         "drips/mvc": "dev-master",
-        "drips/debugger": "dev-master"
+        "drips/debugger": "dev-master",
+        "drips/logger": "dev-master"
     },
     "require-dev": {
         "drips/debugbar": "dev-master"
