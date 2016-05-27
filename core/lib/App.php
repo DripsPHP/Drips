@@ -8,10 +8,22 @@ use Drips\Debugger\Debugger;
 
 class App extends Event
 {
-    public function __construct()
+    private static $instance;
+
+    public static function getInstance(){
+        if(static::$instance === null){
+            static::$instance = new static;
+        }
+
+        return static::$instance;
+    }
+
+    private function __construct()
     {
         static::call("create", $this);
     }
+
+    private function __clone(){}
 
     public function run()
     {

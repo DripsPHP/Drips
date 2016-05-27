@@ -1,6 +1,6 @@
 <?php
 
-$app = new Drips\App;
+$app = Drips\App::getInstance();
 
 // !!! ONLY FOR TESTING
 $app->logger->addDebug('Nur zum Debuggen');
