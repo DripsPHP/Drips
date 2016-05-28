@@ -1,10 +1,21 @@
 <?php
 
 // Drips-Konstanten ------------------------------------------------------------
-define('DRIPS_CORE', __DIR__.'/core');
-define('DRIPS_SRC', __DIR__.'/src');
-define('DRIPS_ERRORS', DRIPS_CORE.'/errors');
-define('DRIPS_PUBLIC', __DIR__.'/public');
+if(!defined('DRIPS_DIRECTORY')){
+    define('DRIPS_DIRECTORY', __DIR__);
+}
+if(!defined('DRIPS_CORE')){
+    define('DRIPS_CORE', DRIPS_DIRECTORY.'/core');
+}
+if(!defined('DRIPS_SRC')){
+    define('DRIPS_SRC', DRIPS_DIRECTORY.'/src');
+}
+if(!defined('DRIPS_PUBLIC')){
+    define('DRIPS_PUBLIC', DRIPS_DIRECTORY.'/public');
+}
+if(!defined('DRIPS_ERRORS')){
+    define('DRIPS_ERRORS', DRIPS_CORE.'/errors');
+}
 // -----------------------------------------------------------------------------
 
 
