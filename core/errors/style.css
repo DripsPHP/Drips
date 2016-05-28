@@ -4,7 +4,7 @@ body {
 	padding:0;
 	font-family: 'Maven Pro', sans-serif;
 }
-header{
+#page-header{
 	background-color:#434a54;
 	color:white;
 	min-height:300px;

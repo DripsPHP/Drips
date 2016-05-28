@@ -13,6 +13,12 @@ if(!defined('DRIPS_SRC')){
 if(!defined('DRIPS_PUBLIC')){
     define('DRIPS_PUBLIC', DRIPS_DIRECTORY.'/public');
 }
+if(!defined('DRIPS_TMP')){
+    define('DRIPS_TMP', DRIPS_DIRECTORY.'/tmp');
+}
+if(!defined('DRIPS_LOGS')){
+    define('DRIPS_LOGS', DRIPS_DIRECTORY.'/logs');
+}
 if(!defined('DRIPS_ERRORS')){
     define('DRIPS_ERRORS', DRIPS_CORE.'/errors');
 }
@@ -31,13 +37,11 @@ use Drips\Debugger\Handler;
 // mod_rewrite aktiviert?
 Handler::on('Drips\Routing\ModRewriteNotEnabledException', function(){
     include DRIPS_ERRORS.'/mod_rewrite.phtml';
-    return true;
 });
 
 // sind bereits Routen registriert?
 Handler::on('Drips\Routing\NoRoutesException', function(){
     include DRIPS_ERRORS.'/no_routes.phtml';
-    return true;
 });
 
 // -----------------------------------------------------------------------------
