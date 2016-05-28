@@ -27,9 +27,21 @@ if(!defined('DRIPS_ERRORS')){
 
 // Benutzerdefinierte Fehlermeldungen für Exceptions ---------------------------
 
+// richtige PHP-Version?
+if(version_compare(PHP_VERSION, '5.5', '<')){
+    include(DRIPS_ERRORS.'/wrong_php.phtml');
+}
+
 // Wurde bereits `composer update` durchgeführt?
 if(!@include('vendor/autoload.php')){
     include(DRIPS_ERRORS.'/install_composer.phtml');
+}
+
+// tmp anlegen
+if(!is_dir(DRIPS_TMP)){
+    if(!mkdir(DRIPS_TMP)){
+        include(DRIPS_ERRORS.'/tmp.phtml');
+    }
 }
 
 use Drips\Debugger\Handler;
