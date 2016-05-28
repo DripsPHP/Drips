@@ -36,6 +36,9 @@ if(version_compare(PHP_VERSION, '5.5', '<')){
 if(!@include('vendor/autoload.php')){
     include(DRIPS_ERRORS.'/install_composer.phtml');
 }
+if(!defined('DRIPS_DEBUG')){
+    define('DRIPS_DEBUG', false);
+}
 
 // tmp anlegen
 if(!is_dir(DRIPS_TMP)){
