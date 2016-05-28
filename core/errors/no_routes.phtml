@@ -1,5 +1,15 @@
 <?php $title = "Noch keine Routen vorhanden"; ?>
 <?php include(__DIR__."/_header.phtml"); ?>
 <p>Es wurden noch keine Routen eingetragen.</p>
+<p>Zum Registrieren einer neuen Route füge bitte folgende Codezeile in der <code>src/bootstrap.php</code> ein:</p>
+<pre>
+<code class="php">
+    $app->router->add("startseite", "/", function(){
+        echo 'Hello World!'
+    });
+</code>
+</pre>
+<p>Es ist zu beachten, dass der Name der Route eindeutig ist, sonst kann die Route nicht hinzugefügt werden. Weitere Informationen zum Routing findest du <a href="https://github.com/Prowect/Routing/blob/master/README.md" target="_blank">hier</a>.</p>
+<br/>
 <a href="./" class="button">Weiter</a>
 <?php include(__DIR__."/_footer.phtml"); ?>
