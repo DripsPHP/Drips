@@ -1,5 +1,7 @@
 <?php
 
+define('DRIPS_START_TIME', microtime(true));
+
 // Drips-Konstanten ------------------------------------------------------------
 if(!defined('DRIPS_DIRECTORY')){
     define('DRIPS_DIRECTORY', __DIR__);
@@ -61,5 +63,8 @@ Handler::on('Drips\Routing\NoRoutesException', function(){
 
 // -----------------------------------------------------------------------------
 
+// include(DRIPS_CORE.'/performance.php');
 
 include(DRIPS_SRC.'/bootstrap.php');
+
+define('DRIPS_END_TIME', microtime(true));
