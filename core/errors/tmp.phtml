@@ -1,5 +1,11 @@
 <?php $title = "tmp konnte nicht angelegt werden"; ?>
 <?php include(__DIR__."/_header.phtml"); ?>
-<p>Drips möchte ein <code><?= DRIPS_TMP ?></code> Verzeichnis anlegen, aber du musst erst die Berechtigungen ändern.</p>
+<p>Damit Drips ordnungsgemäß funktionieren kann, benötigt es ein <code><?= DRIPS_TMP ?> </code> Verzeichnis. Nachdem dieses Verzeichnis noch nicht existiert,
+wollte Drips es selbst anlegen, hat dafür jedoch nicht die erforderlichen Berechtigungen.</p>
+<p>Um dieses Problem zu beheben, setze deine Verzeichnisberechtigungen bitte so, dass Drips Zugriff darauf bzw. die Berechtigungen hat, Dateien und
+Verzeichnisse anzulegen.
+Mithilfe des folgenden Befehls kannst du die Berechtigungen deines Verzeichnisses richtig setzen. (Beachte bitte dass du dich im Drips-Verzeichnis befinden musst!)<p>
+<p><code>chmod -R 0755 .</code></p>
+
 <a href="./" class="button">Weiter</a>
 <?php include(__DIR__."/_footer.phtml"); ?>

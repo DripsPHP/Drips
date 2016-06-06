@@ -1,5 +1,10 @@
 <?php $title = "Rewrite-Modul aktivieren"; ?>
 <?php include(__DIR__."/_header.phtml"); ?>
-<p>Bitte aktivieren Sie das Rewrite-Module des Apache Webservers: <code>a2enmod rewrite</code>.</p>
+<p>Offensichtlich ist das Rewrite-Modul deines Webservers nicht aktiviert.</p>
+<p>Damit Drips mit schönen, benutzerdefinierten URLs arbeiten kann musst du das Rewrite-Modul deines Apache-Webservers installieren bzw. aktivieren.
+Führe hierfür einfach folgendes Kommando aus:</p>
+<p><code>a2enmod rewrite</code></p>
+<p>Solltest du kein Linux-System verwenden, sondern beispielsweise mit einem lokalen Webserver (wie z.B.: XAMPP) entwickeln,
+musst du das Rewrite-Modul ebenso aktivieren. Dies kann über die jeweilige Konfigurationsdatei des Webservers festgelegt werden.</p>
 <a href="./" class="button">Weiter</a>
 <?php include(__DIR__."/_footer.phtml"); ?>
