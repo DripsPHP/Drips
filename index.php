@@ -56,6 +56,11 @@ Handler::on('Drips\Routing\ModRewriteNotEnabledException', function(){
     include DRIPS_ERRORS.'/mod_rewrite.phtml';
 });
 
+// Apache AllowOverride
+Handler::on('Drips\Routing\AllowOverrideAllException', function(){
+    include(DRIPS_ERRORS.'/allowoverride_all.phtml');
+});
+
 // sind bereits Routen registriert?
 Handler::on('Drips\Routing\NoRoutesException', function(){
     include DRIPS_ERRORS.'/no_routes.phtml';
