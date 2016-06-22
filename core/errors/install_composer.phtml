@@ -1,14 +1,14 @@
 <?php $title = "Installation"; ?>
 <?php include(__DIR__."/_header.phtml"); ?>
-
-<p>Du hast es fast geschafft.</p>
+<h2>Du hast es fast geschafft.</h2>
 <p>Drips benötigt noch ein paar Abhängigkeiten um ordnungsgemäß funktionieren zu können. Hierfür kommt Composer als Paketverwaltung zum Einsatz.</p>
-<p>Falls du Composer noch nicht installiert hast, lade ihn dir unter
-    <a href="http://getcomposer.org" target="blank">http://getcomposer.org</a> herunter.<br>
+<p>Falls du Composer noch nicht installiert hast, kannst du ihn <a href="http://getcomposer.org" target="_blank">hier</a> herunterladen.<br>
 Anschließend musst du in dein Drips-Verzeichnis, in dem sich die <code>composer.json</code> Datei befindet navigieren
 und folgendes Kommando ausführen:</p>
-<p><code>composer update</code></p>
-<p>ACHTUNG wenn es sich hierbei um ein Produktivsystem handelt führe bitte folgendes Kommando aus:</p>
-<p><code>composer update —no-dev</code></p>
+<pre><code>composer update</code></pre>
+<h3>Achtung!</h3>
+<p>Wenn es sich hierbei um ein Produktivsystem handelt führe bitte folgendes Kommando aus:</p>
+<pre><code>composer update —no-dev</code></pre>
+<cite>Dadurch wird Drips gleich entsprechend für den Produktiveinsatz konfiguriert.</cite>
 <a href="./" class="button">Weiter</a>
 <?php include(__DIR__."/_footer.phtml"); ?>

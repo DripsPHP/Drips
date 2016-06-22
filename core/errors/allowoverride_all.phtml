@@ -1,12 +1,22 @@
 <?php $title = "AllowOverride All"; ?>
 <?php include(__DIR__."/_header.phtml"); ?>
-
-<p>Stelle bitte sicher dass dein Apache-Webserver <code>AllowOverride All</code> gesetzt hat.</p>
+<h2>Stelle bitte sicher dass dein Apache-Webserver <code>AllowOverride All</code> gesetzt hat.</h2>
+<h3>Erklärung</h3>
 <p>Damit Drips einwandfrei funktionieren kann, benötigt es weitere Berechtigungen um beispielsweise
-die Ausführung der <code>.htaccess Dateien</code> zu ermöglichen.</br>
+die Ausführung der <code>.htaccess</code>-Dateien zu ermöglichen.</br>
 Hierfür ist diese Option erforderlich.</p>
-<p>Du kannst die Einstellung wie folgt vornehmen:</br>
-Öffne die Konfiguration für den jeweiligen VirtualHost und setze innerhalb des VirtualHosts
-<code>AllowOverride All</code></p>
+
+<h3>Problemlösung</h3>
+<p>Du kannst die Einstellung wie folgt vornehmen:</p>
+<ol>
+    <li>
+        Öffne die Konfiguration für den jeweiligen VirtualHost und setze innerhalb des VirtualHosts
+        <pre><code>AllowOverride All</code></pre>
+    </li>
+    <li>
+        Beachte dass der Webserver eventuell neu gestartet werden muss, dass die Änderungen übernommen werden. Hierfür kannst du folgendes Kommando ausführen.
+        <pre><code>service apache2 restart</code></pre>
+    </li>
+</ol>
 <a href="./" class="button">Weiter</a>
 <?php include(__DIR__."/_footer.phtml"); ?>
