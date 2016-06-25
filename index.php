@@ -1,5 +1,8 @@
 <?php
 
+use Drips\Debugger\Handler;
+use Drips\Config\Config;
+
 define('DRIPS_START_TIME', microtime(true));
 
 // Drips-Konstanten ------------------------------------------------------------
@@ -24,52 +27,63 @@ if(!defined('DRIPS_LOGS')){
 if(!defined('DRIPS_ERRORS')){
     define('DRIPS_ERRORS', DRIPS_CORE.'/errors');
 }
+if(!defined('DRIPS_CONFIG')){
+    define('DRIPS_CONFIG', DRIPS_DIRECTORY . '/config');
+}
 // -----------------------------------------------------------------------------
 
 
 // Benutzerdefinierte Fehlermeldungen für Exceptions ---------------------------
-
-// richtige PHP-Version?
-if(version_compare(PHP_VERSION, '5.5', '<')){
-    include(DRIPS_ERRORS.'/wrong_php.phtml');
-}
-
-// Wurde bereits `composer update` durchgeführt?
-if(!@include('vendor/autoload.php')){
-    include(DRIPS_ERRORS.'/install_composer.phtml');
-}
-if(!defined('DRIPS_DEBUG')){
-    define('DRIPS_DEBUG', false);
-}
-
-// tmp anlegen
-if(!is_dir(DRIPS_TMP)){
-    if(!mkdir(DRIPS_TMP)){
-        include(DRIPS_ERRORS.'/tmp.phtml');
+if(PHP_SAPI != 'cli'){
+    // richtige PHP-Version?
+    if(version_compare(PHP_VERSION, '5.5', '<')){
+        include(DRIPS_ERRORS.'/wrong_php.phtml');
     }
+
+    // Wurde bereits `composer update` durchgeführt?
+    if(!@include('vendor/autoload.php')){
+        include(DRIPS_ERRORS.'/install_composer.phtml');
+    }
+    if(!defined('DRIPS_DEBUG')){
+        define('DRIPS_DEBUG', false);
+    }
+
+    // tmp anlegen
+    if(!is_dir(DRIPS_TMP)){
+        if(!mkdir(DRIPS_TMP)){
+            include(DRIPS_ERRORS.'/tmp.phtml');
+        }
+    }
+
+    // mod_rewrite aktiviert?
+    Handler::on('Drips\Routing\ModRewriteNotEnabledException', function(){
+        include DRIPS_ERRORS.'/mod_rewrite.phtml';
+    });
+
+    // Apache AllowOverride
+    Handler::on('Drips\Routing\AllowOverrideAllException', function(){
+        include(DRIPS_ERRORS.'/allowoverride_all.phtml');
+    });
+
+    // sind bereits Routen registriert?
+    Handler::on('Drips\Routing\NoRoutesException', function(){
+        include DRIPS_ERRORS.'/no_routes.phtml';
+    });
+
+    // -----------------------------------------------------------------------------
+
+    // load config
+    $configFile = DRIPS_CONFIG.'/'.(DRIPS_DEBUG ? 'dev' : 'prod').'.config.php';
+    if(file_exists($configFile)){
+        $config = include($configFile);
+        foreach($config as $key => $val){
+            Config::set($key, $val);
+        }
+    }
+
+    // include(DRIPS_CORE.'/performance.php');
+
+    include(DRIPS_SRC.'/bootstrap.php');
 }
-
-use Drips\Debugger\Handler;
-
-// mod_rewrite aktiviert?
-Handler::on('Drips\Routing\ModRewriteNotEnabledException', function(){
-    include DRIPS_ERRORS.'/mod_rewrite.phtml';
-});
-
-// Apache AllowOverride
-Handler::on('Drips\Routing\AllowOverrideAllException', function(){
-    include(DRIPS_ERRORS.'/allowoverride_all.phtml');
-});
-
-// sind bereits Routen registriert?
-Handler::on('Drips\Routing\NoRoutesException', function(){
-    include DRIPS_ERRORS.'/no_routes.phtml';
-});
-
-// -----------------------------------------------------------------------------
-
-// include(DRIPS_CORE.'/performance.php');
-
-include(DRIPS_SRC.'/bootstrap.php');
 
 define('DRIPS_END_TIME', microtime(true));
