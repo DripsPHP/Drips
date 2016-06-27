@@ -6,13 +6,15 @@ return array(
 
     'database_host' => 'localhost',
 
-    'database_name' => 'drips',
+    'database_name' => 'test',
 
     'database_username' => 'root',
 
-    'database_password' => 'root',
+    'database_password' => '',
 
     'database_port' => 3306,
 
-    'database_charset' => 'utf-8'
+    'database_charset' => 'utf-8',
+
+    'timezone' => 'Europe/Vienna'
 );
