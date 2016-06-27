@@ -80,6 +80,7 @@ if(PHP_SAPI != 'cli'){
             Config::set($key, $val);
         }
     }
+    date_default_timezone_set(Config::get('timezone', 'Europe/Vienna'));
 
     // include(DRIPS_CORE.'/performance.php');
 
