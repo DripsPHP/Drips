@@ -18,5 +18,8 @@
             "Drips\\": "core/lib"
         }
     },
+    "post-update-cmd": [
+        "php install.php"
+    ],
 	"minimum-stability": "dev"
 }

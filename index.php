@@ -33,38 +33,6 @@ if(!defined('DRIPS_CONFIG')){
 // -----------------------------------------------------------------------------
 
 
-// Installation ----------------------------------------------------------------
-function drips_rcopy($src, $dst){
-    $handle = opendir($src);
-    @mkdir($dst);
-    while($file = readdir($handle)){
-        if (!in_array($file, ['.', '..'])){
-            if (is_dir($src.'/'.$file)){
-                drips_rcopy($src.'/'.$file,$dst.'/'.$file);
-            } else {
-                copy($src.'/'.$file, $dst.'/'.$file);
-            }
-        }
-    }
-    closedir($handle);
-}
-$to_copy = array(
-    DRIPS_SRC => __DIR__.'/src',
-    DRIPS_PUBLIC => __DIR__.'/public',
-    DRIPS_TMP => __DIR__.'/tmp',
-    DRIPS_LOGS => __DIR__.'/logs',
-    DRIPS_CONFIG => __DIR__.'/config'
-);
-foreach($to_copy as $target => $source){
-    if(!is_dir($target) && is_dir($source)){
-        drips_rcopy($source, $target);
-    } elseif(!file_exists($target) && is_file($source)){
-        copy($source, $target);
-    }
-}
-// -----------------------------------------------------------------------------
-
-
 // Benutzerdefinierte Fehlermeldungen für Exceptions ---------------------------
 if(PHP_SAPI != 'cli'){
     // richtige PHP-Version?
