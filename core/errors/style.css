@@ -84,6 +84,7 @@ cite {
 	section, .header_img{
 		width:80%;
 	}
+}
 @media (max-width: 350px){
 	header{
 		height:300px;
