@@ -10,7 +10,7 @@ if(!defined('DRIPS_DIRECTORY')){
     define('DRIPS_DIRECTORY', __DIR__);
 }
 if(!defined('DRIPS_CORE')){
-    define('DRIPS_CORE', DRIPS_DIRECTORY.'/core');
+    define('DRIPS_CORE', __DIR__.'/core');
 }
 if(!defined('DRIPS_SRC')){
     define('DRIPS_SRC', DRIPS_DIRECTORY.'/src');
@@ -49,16 +49,18 @@ function drips_rcopy($src, $dst){
     closedir($handle);
 }
 $to_copy = array(
-    'src' => DRIPS_SRC,
-    'public' => DRIPS_PUBLIC,
-    'tmp' => DRIPS_TMP,
-    'logs' => DRIPS_LOGS,
-    'config' => DRIPS_CONFIG
+    DRIPS_SRC => __DIR__.'/src',
+    DRIPS_PUBLIC => __DIR__.'/public',
+    DRIPS_TMP => __DIR__.'/tmp',
+    DRIPS_LOGS => __DIR__.'/logs',
+    DRIPS_CONFIG => __DIR__.'/config',
+    DRIPS_DIRECTORY.'/.htaccess' => __DIR__.'/.htaccess'
 );
 foreach($to_copy as $target => $source){
-    $target_dir = DRIPS_DIRECTORY.'/'.$target;
-    if(is_dir($target_dir)){
-        drips_rcopy($target_dir, $source);
+    if(!is_dir($target) && is_dir($source)){
+        drips_rcopy($source, $target);
+    } elseif(!file_exists($target) && is_file($source)){
+        copy($source, $target);
     }
 }
 // -----------------------------------------------------------------------------
@@ -72,7 +74,7 @@ if(PHP_SAPI != 'cli'){
     }
 
     // Wurde bereits `composer update` durchgeführt?
-    if(!@include('vendor/autoload.php')){
+    if(!@include(DRIPS_DIRECTORY.'/vendor/autoload.php')){
         include(DRIPS_ERRORS.'/install_composer.phtml');
     }
     if(!defined('DRIPS_DEBUG')){
