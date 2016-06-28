@@ -53,8 +53,7 @@ $to_copy = array(
     DRIPS_PUBLIC => __DIR__.'/public',
     DRIPS_TMP => __DIR__.'/tmp',
     DRIPS_LOGS => __DIR__.'/logs',
-    DRIPS_CONFIG => __DIR__.'/config',
-    DRIPS_DIRECTORY.'/.htaccess' => __DIR__.'/.htaccess'
+    DRIPS_CONFIG => __DIR__.'/config'
 );
 foreach($to_copy as $target => $source){
     if(!is_dir($target) && is_dir($source)){
