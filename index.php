@@ -32,6 +32,16 @@ if(!defined('DRIPS_CONFIG')){
 }
 // -----------------------------------------------------------------------------
 
+function drips_config(){
+    $configFile = DRIPS_CONFIG.'/'.(DRIPS_DEBUG ? 'dev' : 'prod').'.config.php';
+    if(file_exists($configFile)){
+        $config = include($configFile);
+        foreach($config as $key => $val){
+            Config::set($key, $val);
+        }
+    }
+    date_default_timezone_set(Config::get('timezone', 'Europe/Vienna'));
+}
 
 // Benutzerdefinierte Fehlermeldungen für Exceptions ---------------------------
 if(PHP_SAPI != 'cli'){
@@ -70,25 +80,19 @@ if(PHP_SAPI != 'cli'){
         include DRIPS_ERRORS.'/no_routes.phtml';
     });
 
+    // load config
+    drips_config();
+
+    include(DRIPS_SRC.'/bootstrap.php');
+
     // -----------------------------------------------------------------------------
 } else {
     if(!@include(DRIPS_DIRECTORY.'/vendor/autoload.php')){
-        echo 'composer update ausführen!';
+        die('composer update ausführen!');
     }
+    drips_config();
 }
-
-// load config
-$configFile = DRIPS_CONFIG.'/'.(DRIPS_DEBUG ? 'dev' : 'prod').'.config.php';
-if(file_exists($configFile)){
-    $config = include($configFile);
-    foreach($config as $key => $val){
-        Config::set($key, $val);
-    }
-}
-date_default_timezone_set(Config::get('timezone', 'Europe/Vienna'));
 
 // include(DRIPS_CORE.'/performance.php');
-
-include(DRIPS_SRC.'/bootstrap.php');
 
 define('DRIPS_END_TIME', microtime(true));
