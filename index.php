@@ -2,6 +2,8 @@
 
 use Drips\Debugger\Handler;
 use Drips\Config\Config;
+use Drips\CLI\Command;
+use Drips\EnvironmentCmd;
 
 define('DRIPS_START_TIME', microtime(true));
 
@@ -92,6 +94,7 @@ if(PHP_SAPI != 'cli'){
         die('composer update ausführen!');
     }
     drips_config();
+    Command::register('env', EnvironmentCmd::class);
 }
 
 // include(DRIPS_CORE.'/performance.php');
