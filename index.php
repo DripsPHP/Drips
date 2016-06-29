@@ -33,6 +33,10 @@ if(!defined('DRIPS_CONFIG')){
 // -----------------------------------------------------------------------------
 
 function drips_config(){
+    if(!defined('DRIPS_DEBUG')){
+        define('DRIPS_DEBUG', false);
+    }
+
     $configFile = DRIPS_CONFIG.'/'.(DRIPS_DEBUG ? 'dev' : 'prod').'.config.php';
     if(file_exists($configFile)){
         $config = include($configFile);
@@ -53,9 +57,6 @@ if(PHP_SAPI != 'cli'){
     // Wurde bereits `composer update` durchgeführt?
     if(!@include(DRIPS_DIRECTORY.'/vendor/autoload.php')){
         include(DRIPS_ERRORS.'/install_composer.phtml');
-    }
-    if(!defined('DRIPS_DEBUG')){
-        define('DRIPS_DEBUG', false);
     }
 
     // tmp anlegen
