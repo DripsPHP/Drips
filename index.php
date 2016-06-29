@@ -71,20 +71,24 @@ if(PHP_SAPI != 'cli'){
     });
 
     // -----------------------------------------------------------------------------
-
-    // load config
-    $configFile = DRIPS_CONFIG.'/'.(DRIPS_DEBUG ? 'dev' : 'prod').'.config.php';
-    if(file_exists($configFile)){
-        $config = include($configFile);
-        foreach($config as $key => $val){
-            Config::set($key, $val);
-        }
+} else {
+    if(!@include(DRIPS_DIRECTORY.'/vendor/autoload.php')){
+        echo 'composer update ausführen!';
     }
-    date_default_timezone_set(Config::get('timezone', 'Europe/Vienna'));
-
-    // include(DRIPS_CORE.'/performance.php');
-
-    include(DRIPS_SRC.'/bootstrap.php');
 }
+
+// load config
+$configFile = DRIPS_CONFIG.'/'.(DRIPS_DEBUG ? 'dev' : 'prod').'.config.php';
+if(file_exists($configFile)){
+    $config = include($configFile);
+    foreach($config as $key => $val){
+        Config::set($key, $val);
+    }
+}
+date_default_timezone_set(Config::get('timezone', 'Europe/Vienna'));
+
+// include(DRIPS_CORE.'/performance.php');
+
+include(DRIPS_SRC.'/bootstrap.php');
 
 define('DRIPS_END_TIME', microtime(true));
