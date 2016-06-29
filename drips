@@ -1,0 +1,8 @@
+#!/usr/bin/php
+<?php
+
+use Drips\CLI\Command;
+
+include(__DIR__.'/index.php');
+
+Command::execute($argv);
