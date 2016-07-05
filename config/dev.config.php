@@ -6,7 +6,7 @@ return array(
 
     'database_host' => 'localhost',
 
-    'database_name' => 'login04pages',
+    'database_name' => 'drips',
 
     'database_username' => 'root',
 
