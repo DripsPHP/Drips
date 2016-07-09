@@ -2,6 +2,8 @@
 
 use Drips\Debugger\Handler;
 use Drips\Config\Config;
+use Drips\CLI\Command;
+use Drips\EnvironmentCmd;
 
 define('DRIPS_START_TIME', microtime(true));
 
@@ -32,6 +34,20 @@ if(!defined('DRIPS_CONFIG')){
 }
 // -----------------------------------------------------------------------------
 
+function drips_config(){
+    if(!defined('DRIPS_DEBUG')){
+        define('DRIPS_DEBUG', false);
+    }
+
+    $configFile = DRIPS_CONFIG.'/'.(DRIPS_DEBUG ? 'dev' : 'prod').'.config.php';
+    if(file_exists($configFile)){
+        $config = include($configFile);
+        foreach($config as $key => $val){
+            Config::set($key, $val);
+        }
+    }
+    date_default_timezone_set(Config::get('timezone', 'Europe/Vienna'));
+}
 
 // Benutzerdefinierte Fehlermeldungen für Exceptions ---------------------------
 if(PHP_SAPI != 'cli'){
@@ -43,9 +59,6 @@ if(PHP_SAPI != 'cli'){
     // Wurde bereits `composer update` durchgeführt?
     if(!@include(DRIPS_DIRECTORY.'/vendor/autoload.php')){
         include(DRIPS_ERRORS.'/install_composer.phtml');
-    }
-    if(!defined('DRIPS_DEBUG')){
-        define('DRIPS_DEBUG', false);
     }
 
     // tmp anlegen
@@ -70,28 +83,30 @@ if(PHP_SAPI != 'cli'){
         include DRIPS_ERRORS.'/no_routes.phtml';
     });
 
+
     // Es kann keine Verbindung aufgebaut werden
     Handler::on('Propel\Runtime\Connection\Exception\ConnectionException', function(){
         include DRIPS_ERRORS.'/connection_failed.phtml';
     });
 
-include DRIPS_ERRORS.'/connection_failed.phtml';
 
     // -----------------------------------------------------------------------------
 
-    // load config
-    $configFile = DRIPS_CONFIG.'/'.(DRIPS_DEBUG ? 'dev' : 'prod').'.config.php';
-    if(file_exists($configFile)){
-        $config = include($configFile);
-        foreach($config as $key => $val){
-            Config::set($key, $val);
-        }
-    }
-    date_default_timezone_set(Config::get('timezone', 'Europe/Vienna'));
 
-    // include(DRIPS_CORE.'/performance.php');
+    // load config
+    drips_config();
 
     include(DRIPS_SRC.'/bootstrap.php');
+
+    // -----------------------------------------------------------------------------
+} else {
+    if(!@include(DRIPS_DIRECTORY.'/vendor/autoload.php')){
+        die('composer update ausführen!');
+    }
+    drips_config();
+    Command::register('env', EnvironmentCmd::class);
 }
+
+// include(DRIPS_CORE.'/performance.php');
 
 define('DRIPS_END_TIME', microtime(true));
