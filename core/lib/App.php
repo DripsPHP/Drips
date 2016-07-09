@@ -6,8 +6,10 @@ use Drips\Utils\Event;
 use Drips\Routing\Router;
 use Drips\Debugger\Debugger;
 
-class App extends Event
+class App
 {
+    use Event;
+    
     private static $instance;
 
     public static function getInstance(){
