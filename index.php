@@ -70,6 +70,13 @@ if(PHP_SAPI != 'cli'){
         include DRIPS_ERRORS.'/no_routes.phtml';
     });
 
+    // Es kann keine Verbindung aufgebaut werden
+    Handler::on('Propel\Runtime\Connection\Exception\ConnectionException', function(){
+        include DRIPS_ERRORS.'/connection_failed.phtml';
+    });
+
+include DRIPS_ERRORS.'/connection_failed.phtml';
+
     // -----------------------------------------------------------------------------
 
     // load config
