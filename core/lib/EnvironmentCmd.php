@@ -9,7 +9,7 @@ abstract class EnvironmentCmd implements ICommand
 {
     public static function dev()
     {
-        $result = shell_exec('php composer.phar update --dev');
+        $result = shell_exec('php composer.phar install --dev');
         if(strpos($result, 'Could not open input file: composer.phar') !== false){
             Console::error('Aktivierung der Entwicklungsumgebung nicht möglich - composer fehlt!');
         } else {
@@ -19,7 +19,7 @@ abstract class EnvironmentCmd implements ICommand
 
     public static function prod()
     {
-        $result = shell_exec('php composer.phar update --no-dev');
+        $result = shell_exec('php composer.phar install --no-dev');
         if(strpos($result, 'Could not open input file: composer.phar') !== false){
             Console::error('Aktivierung der Produktivumgebung nicht möglich - composer fehlt!');
         } else {
