@@ -4,6 +4,7 @@ namespace Drips;
 
 use Drips\CLI\ICommand;
 use Drips\CLI\Console;
+use Drips\Utils\ClassGenerator;
 
 abstract class ControllerCmd implements ICommand
 {
