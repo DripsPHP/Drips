@@ -28,11 +28,7 @@ abstract class ControllerCmd implements ICommand
 
     public static function help()
     {
-        Console::writeln('Mithilfe des env-Kommandos kann zwischen Entwicklungs- und Produktivumgebung umgeschalten werden.');
-        Console::writeln('Entwicklungsumgebung aktivieren:');
-        Console::writeln('  php drips env dev');
-        Console::writeln('Produktivumgebung aktivieren:');
-        Console::writeln('  php drips env prod');
-        Console::success('Aktiv: ' . (DRIPS_DEBUG ? 'DEVELOPMENT' : 'PRODUCTION'));
+        Console::writeln('Mithilfe des Controller-Kommandos wird eine neue Controllerklasse erzeugt.');
+        Console::writeln('  php drips controller add {name}');
     }
 }
