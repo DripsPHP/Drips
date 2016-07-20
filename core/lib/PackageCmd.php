@@ -32,13 +32,26 @@ abstract class PackageCmd implements ICommand
         }
     }
 
+    public static function installed(){
+        echo shell_exec('composer show -i 2>&1');
+    }
+
+    public static function available(){
+        echo shell_exec('composer search drips 2>&1');
+    }
+
+
     public static function help()
     {
-        Console::writeln('Mithilfe des Package Kommandos können die Abhängigkeiten verwaltet werden.');
+        Console::writeln('Mithilfe des Package Kommandos können die Packages verwaltet werden.');
         Console::writeln('Installation:');
         Console::writeln('  php drips package install {name} {version}');
         Console::writeln('  php drips package install {name}');
         Console::writeln('Deinstallation:');
         Console::writeln('  php drips package uninstall {name}');
+        Console::writeln('Auflistung aller Packages:');
+        Console::writeln('  php drips package installed');
+        Console::writeln('Auflistung aller verfügbaren Packages:');
+        Console::writeln('  php drips package available');
     }
 }
