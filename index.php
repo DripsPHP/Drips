@@ -5,6 +5,7 @@ use Drips\Config\Config;
 use Drips\CLI\Command;
 use Drips\EnvironmentCmd;
 use Drips\ControllerCmd;
+use Drips\PackageCmd;
 
 define('DRIPS_START_TIME', microtime(true));
 
@@ -107,6 +108,7 @@ if(PHP_SAPI != 'cli'){
     drips_config();
     Command::register('env', EnvironmentCmd::class);
     Command::register('controller', ControllerCmd::class);
+    Command::register('package', PackageCmd::class);
 }
 
 // include(DRIPS_CORE.'/performance.php');
