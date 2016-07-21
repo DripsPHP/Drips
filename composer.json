@@ -8,7 +8,8 @@
         "drips/mvc": "dev-master",
         "drips/debugger": "dev-master",
         "drips/config": "dev-master",
-        "drips/cli": "dev-master"
+        "drips/cli": "dev-master",
+        "drips/logger": "dev-master"
     },
     "require-dev": {
         "drips/debugbar": "dev-master"

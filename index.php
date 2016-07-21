@@ -1,11 +1,6 @@
 <?php
 
-use Drips\Debugger\Handler;
 use Drips\Config\Config;
-use Drips\CLI\Command;
-use Drips\EnvironmentCmd;
-use Drips\ControllerCmd;
-use Drips\PackageCmd;
 
 define('DRIPS_START_TIME', microtime(true));
 
@@ -53,47 +48,7 @@ function drips_config(){
 
 // Benutzerdefinierte Fehlermeldungen für Exceptions ---------------------------
 if(PHP_SAPI != 'cli'){
-    // richtige PHP-Version?
-    if(version_compare(PHP_VERSION, '5.5', '<')){
-        include(DRIPS_ERRORS.'/wrong_php.phtml');
-    }
-
-    // Wurde bereits `composer update` durchgeführt?
-    if(!@include(DRIPS_DIRECTORY.'/vendor/autoload.php')){
-        include(DRIPS_ERRORS.'/install_composer.phtml');
-    }
-
-    // tmp anlegen
-    if(!is_dir(DRIPS_TMP)){
-        if(!mkdir(DRIPS_TMP)){
-            include(DRIPS_ERRORS.'/tmp.phtml');
-        }
-    }
-
-    // mod_rewrite aktiviert?
-    Handler::on('Drips\Routing\ModRewriteNotEnabledException', function(){
-        include DRIPS_ERRORS.'/mod_rewrite.phtml';
-    });
-
-    // Apache AllowOverride
-    Handler::on('Drips\Routing\AllowOverrideAllException', function(){
-        include(DRIPS_ERRORS.'/allowoverride_all.phtml');
-    });
-
-    // sind bereits Routen registriert?
-    Handler::on('Drips\Routing\NoRoutesException', function(){
-        include DRIPS_ERRORS.'/no_routes.phtml';
-    });
-
-
-    // Es kann keine Verbindung aufgebaut werden
-    Handler::on('Propel\Runtime\Connection\Exception\ConnectionException', function(){
-        include DRIPS_ERRORS.'/connection_failed.phtml';
-    });
-
-
-    // -----------------------------------------------------------------------------
-
+    include(DRIPS_CORE.'/errors.php');
 
     // load config
     drips_config();
@@ -106,9 +61,7 @@ if(PHP_SAPI != 'cli'){
         die('composer update ausführen!');
     }
     drips_config();
-    Command::register('env', EnvironmentCmd::class);
-    Command::register('controller', ControllerCmd::class);
-    Command::register('package', PackageCmd::class);
+    include(DRIPS_CORE.'/cmds.php');
 }
 
 // include(DRIPS_CORE.'/performance.php');
