@@ -1,6 +1,10 @@
 <?php
 
-$app = Drips\App::getInstance();
+use Drips\App;
+use Drips\Routing\Router;
+
+$app = App::getInstance();
+$router = Router::getInstance();
 
 // =============================================================================
 // ==                Hier kannst du deine Routen registrieren                 ==
