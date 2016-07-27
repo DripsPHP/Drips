@@ -4,21 +4,19 @@
     "keywords": ["framework", "php", "drips", "prowect"],
     "license": "MIT",
     "require": {
-        "drips/routing": "dev-master",
-        "drips/mvc": "dev-master",
-        "drips/debugger": "dev-master",
-        "drips/config": "dev-master",
-        "drips/cli": "dev-master",
-        "drips/logger": "dev-master"
+        "drips/mvc": "^1.0",
+        "drips/debugger": "^1.0",
+        "drips/config": "^1.0",
+        "drips/cli": "^1.0",
+        "drips/logger": "^1.0"
     },
     "require-dev": {
-        "drips/debugbar": "dev-master"
+        "drips/debugbar": "^1.0"
     },
     "autoload": {
         "psr-4": {
             "": "src/",
             "Drips\\": "core/lib"
         }
-    },
-	"minimum-stability": "dev"
+    }
 }
